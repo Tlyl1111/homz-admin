@@ -36,12 +36,7 @@ const Users = () => {
             
           </div>
 
-          {!showNotificationForm && (
-            <UserFilters
-              onSearchChange={handleSearchChange}
-              onRoleChange={handleRoleChange}
-            />
-          )}
+          
 
           {showNotificationForm ? (
             <NotificationForm onClose={() => setShowNotificationForm(false)} />

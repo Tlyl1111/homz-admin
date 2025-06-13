@@ -1,23 +1,9 @@
-
 import { useState } from "react";
 import { Sidebar } from "../components/Sidebar";
 import { OrderTable } from "../components/OrderTable";
-import { OrderFilters } from "../components/OrderFilters";
 
 const Orders = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
-  const [filters, setFilters] = useState({
-    search: "",
-    status: ""
-  });
-
-  const handleSearchChange = (search: string) => {
-    setFilters(prev => ({ ...prev, search }));
-  };
-
-  const handleStatusChange = (status: string) => {
-    setFilters(prev => ({ ...prev, status }));
-  };
 
   return (
     <div className="min-h-screen bg-background flex">
@@ -30,12 +16,7 @@ const Orders = () => {
             <p className="text-muted-foreground">Track and update order status</p>
           </div>
 
-          <OrderFilters
-            onSearchChange={handleSearchChange}
-            onStatusChange={handleStatusChange}
-          />
-
-          <OrderTable filters={filters} />
+          <OrderTable />
         </div>
       </div>
     </div>

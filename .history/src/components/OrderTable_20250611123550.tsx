@@ -176,8 +176,8 @@ export const OrderTable = () => {
                     className="text-xs border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-1"
                   >
                     <option value="pending">Pending</option>
-                    <option value="pick up">Pick Up</option>
-                    <option value="shipping">Shipping</option>
+                    <option value="processing">Processing</option>
+                    <option value="cancelled">Cancelled</option>
                     <option value="delivered">Delivered</option>
                     <option value="cancelled">Cancelled</option>
                   </select>

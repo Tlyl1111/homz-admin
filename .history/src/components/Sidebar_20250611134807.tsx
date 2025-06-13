@@ -25,8 +25,8 @@ export const Sidebar = ({ isOpen, onToggle }: SidebarProps) => {
       <div className="p-4 border-b border-sidebar-border">
         <div className="flex items-center justify-between">
           <div className={`flex items-center ${isOpen ? '' : 'justify-center'}`}>
-            <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center">
-            <img src="/favicon.ico" alt="Logo" className="max-w-[40px] max-h-[40px] object-contain" />
+            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+              <span className="text-primary-foreground font-bold text-sm">A</span>
             </div>
             {isOpen && (
               <span className="ml-3 text-xl font-bold text-sidebar-foreground">Admin</span>

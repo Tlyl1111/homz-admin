@@ -59,26 +59,21 @@ export const ProductForm = ({ product, onClose, onSave }: ProductFormProps) => {
   }, [product]);
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault(); // thêm preventDefault để ngăn reload
-  
     const finalFormData = {
-      name: formData.name,
-      price: Number(formData.price),
-      description: formData.description,
-      categoryId: Number(formData.categoryId),
-      featured: formData.featured ? "true" : "false",
-      colorsList: formData.colorsList,
-      imagesList: imageUrl || formData.imagesList, // lấy ảnh mới hoặc giữ ảnh cũ
+      name: String(name),
+      price: Number(price),
+      description: String(description),
+      categoryId: Number(categoryId),
+      featured: featured ? "true" : "false",
+      colorsList: colorsList.join(", "),
+      imagesList: imageUrl, 
     };
   
     const { error } = await supabase.from("Products").upsert(finalFormData);
     if (error) {
       console.error("Error saving product:", error);
-      alert("Error saving product");
     } else {
-      alert("Product saved successfully!");
-      onSave(); 
-      onClose();
+      console.log("Product saved successfully!");
     }
   };
   

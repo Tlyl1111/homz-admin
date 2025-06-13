@@ -3,8 +3,8 @@ import { useState } from "react";
 import { Sidebar } from "../components/Sidebar";
 import { ProductTable } from "../components/ProductTable";
 import { ProductForm } from "../components/ProductForm";
-import { ProductFilters } from "../components/ProductFilters";
 import { Plus } from "lucide-react";
+import { ProductFilters } from "../components/ProductFilters";
 
 const Products = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -46,12 +46,12 @@ const Products = () => {
         <div className="p-8">
           <div className="flex justify-between items-center mb-8">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">Product Management</h1>
+              <h1 className="text-3xl font-bold text-primary mb-2">Product Management</h1>
               <p className="text-gray-600">Add, edit, and manage products in the system</p>
             </div>
             <button
               onClick={handleCreate}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
+              className="bg-primary hover:bg-primary text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
             >
               <Plus size={20} />
               Add Product
@@ -73,7 +73,7 @@ const Products = () => {
               onSave={() => setShowForm(false)}
             />
           ) : (
-            <ProductTable onEdit={handleEdit} filters={filters} />
+            <ProductTable onEdit={handleEdit} filters={filters}/>
           )}
         </div>
       </div>

@@ -1,12 +1,12 @@
 import { Edit, Trash2 } from "lucide-react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 
 interface ProductTableProps {
   onEdit: (product: any) => void;
 }
 
-// Danh sách màu
+// Danh sách màu đầy đủ
 const colorList = [
   { name: "Red", hex: "#F44336" },
   { name: "Green", hex: "#4CAF50" },
@@ -26,14 +26,13 @@ const colorList = [
   { name: "Yellow", hex: "#FFEB3B" },
 ];
 
+// Hàm tìm mã màu theo tên
 const getColorHex = (colorName: string) => {
   const found = colorList.find(c => c.name.toLowerCase() === colorName.trim().toLowerCase());
   return found ? found.hex : "#ccc";
 };
 
 export const ProductTable = ({ onEdit }: ProductTableProps) => {
-  const queryClient = useQueryClient();
-
   const { data: products = [], isLoading, error } = useQuery({
     queryKey: ['products'],
     queryFn: async () => {
@@ -45,7 +44,6 @@ export const ProductTable = ({ onEdit }: ProductTableProps) => {
             name
           )
         `)
-        .eq('status', true)
         .order('created_at', { ascending: false });
 
       if (error) {
@@ -56,20 +54,6 @@ export const ProductTable = ({ onEdit }: ProductTableProps) => {
       return data || [];
     }
   });
-
-  const handleDelete = async (productId: number) => {
-    const { error } = await supabase
-      .from('Products')
-      .update({ status: false })
-      .eq('product_id', productId);
-
-    if (error) {
-      console.error("Failed to delete product:", error);
-      return;
-    }
-
-    queryClient.invalidateQueries({ queryKey: ['products'] });
-  };
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('en-US', {
@@ -108,11 +92,21 @@ export const ProductTable = ({ onEdit }: ProductTableProps) => {
         <table className="w-full">
           <thead className="bg-gray-50 border-b border-gray-200">
             <tr>
-              <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Product</th>
-              <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
-              <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
-              <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Color</th>
-              <th className="px-6 py-4 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+              <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Product
+              </th>
+              <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Price
+              </th>
+              <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Category
+              </th>
+              <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Color
+              </th>
+              <th className="px-6 py-4 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Actions
+              </th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200">
@@ -158,10 +152,7 @@ export const ProductTable = ({ onEdit }: ProductTableProps) => {
                   >
                     <Edit size={16} />
                   </button>
-                  <button
-                    onClick={() => handleDelete(product.product_id)}
-                    className="text-red-600 hover:text-red-900"
-                  >
+                  <button className="text-red-600 hover:text-red-900">
                     <Trash2 size={16} />
                   </button>
                 </td>

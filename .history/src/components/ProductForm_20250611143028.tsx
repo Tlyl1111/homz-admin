@@ -77,7 +77,7 @@ export const ProductForm = ({ product, onClose, onSave }: ProductFormProps) => {
       alert("Error saving product");
     } else {
       alert("Product saved successfully!");
-      onSave(); 
+      onSave(); // gọi callback
       onClose();
     }
   };

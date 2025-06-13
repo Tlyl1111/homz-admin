@@ -33,7 +33,13 @@ const Users = () => {
               <h1 className="text-3xl font-bold text-foreground mb-2">User Management</h1>
               <p className="text-muted-foreground">User list and send notifications</p>
             </div>
-            
+            <button
+              onClick={() => setShowNotificationForm(true)}
+              className="bg-primary hover:bg-primary/90 text-primary-foreground px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
+            >
+              <Bell size={20} />
+              Send Notification
+            </button>
           </div>
 
           {!showNotificationForm && (
